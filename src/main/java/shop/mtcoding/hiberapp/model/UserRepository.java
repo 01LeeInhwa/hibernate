@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,16 +15,20 @@ public class UserRepository {
     private final EntityManager em;
 
     // 기본 CRUD
-    public User sava(User user){
+    @Transactional
+    public User save(User user){
         em.persist(user);
         return user;
     }
+    @Transactional
     public User update(User user){
         return em.merge(user);
     }
+    @Transactional
     public void delete(User user){ 
         em.remove(user);
     }
+    @Transactional
     public User findById(Long id){
         return em.find(User.class, id);
     }
